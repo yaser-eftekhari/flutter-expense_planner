@@ -49,15 +49,44 @@ class MyHomePage extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                          child: Text(tx.amount.toString()),
+                          child: Text(
+                            tx.amount.toString(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.purple,
+                            ),
+                          ),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 10,
+                          ),
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                            color: Colors.purple,
+                            width: 2,
+                          )),
                         ),
                         Column(
                           children: [
-                            Text(tx.title),
+                            Text(
+                              tx.title,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
                             Text(
                               tx.date.toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: Colors.grey,
+                              ),
                             ),
                           ],
+                          crossAxisAlignment: CrossAxisAlignment.start,
                         ),
                       ],
                     ),
