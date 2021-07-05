@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-import './transaction.dart';
+import 'widgets/user_transactions.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,24 +15,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  final amountController = TextEditingController();
-  final titleController = TextEditingController();
-
-  final List<Transaction> transaction = [
-    Transaction(
-      id: "id1",
-      title: "new shoes",
-      amount: 69.75,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: "id2",
-      title: "groceries",
-      amount: 112.64,
-      date: DateTime.now(),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,91 +26,7 @@ class MyHomePage extends StatelessWidget {
           Card(
             child: Text("Chart goes here!"),
           ),
-          Card(
-            elevation: 5,
-            child: Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Title'),
-                    controller: titleController,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Amount'),
-                    controller: amountController,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      print(amountController.text);
-                      print(titleController.text);
-                    },
-                    child: Text(
-                      "Add Transaction",
-                      style: TextStyle(
-                        color: Colors.purple,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              padding: EdgeInsets.all(10),
-            ),
-          ),
-          Column(
-            children: [
-              ...transaction.map(
-                (tx) {
-                  return Card(
-                    child: Row(
-                      children: [
-                        Container(
-                          child: Text(
-                            "\$${tx.amount}",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.purple,
-                            ),
-                          ),
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 15,
-                            vertical: 10,
-                          ),
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                            color: Colors.purple,
-                            width: 2,
-                          )),
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              tx.title,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Text(
-                              DateFormat.yMMMd().format(tx.date),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              )
-            ],
-          )
+          UserTransactions(),
         ],
       ),
     );
