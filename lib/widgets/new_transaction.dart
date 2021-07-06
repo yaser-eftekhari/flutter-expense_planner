@@ -16,9 +16,6 @@ class _NewTransactionState extends State<NewTransaction> {
     final inputTxTitle = titleController.text;
     final inputTxAmount = amountController.text;
 
-    print(inputTxAmount);
-    print(inputTxTitle);
-
     if(inputTxTitle.isEmpty || inputTxAmount.isEmpty)
       return;
 
@@ -26,6 +23,8 @@ class _NewTransactionState extends State<NewTransaction> {
       inputTxTitle,
       double.parse(inputTxAmount),
     );
+
+    Navigator.of(context).pop();
   }
 
   @override
