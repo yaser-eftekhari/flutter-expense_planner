@@ -11,6 +11,9 @@ class NewTransaction extends StatelessWidget {
     final inputTxTitle = titleController.text;
     final inputTxAmount = amountController.text;
 
+    print(inputTxAmount);
+    print(inputTxTitle);
+
     if(inputTxTitle.isEmpty || inputTxAmount.isEmpty)
       return;
 
