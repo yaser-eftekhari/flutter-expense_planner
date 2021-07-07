@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Personal Expenses',
       theme: ThemeData(
         primarySwatch: Colors.purple,
@@ -57,18 +58,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final List<Transaction> _userTransactions = [
-    Transaction(
-      id: "id1",
-      title: "new shoes",
-      amount: 69.75,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: "id2",
-      title: "groceries",
-      amount: 112.64,
-      date: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: "id1",
+    //   title: "new shoes",
+    //   amount: 69.75,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: "id2",
+    //   title: "groceries",
+    //   amount: 112.64,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   void _addNewTransaction(String newTitle, double newAmount) {
