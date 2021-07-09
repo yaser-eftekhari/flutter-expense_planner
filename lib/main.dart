@@ -83,24 +83,35 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('Flutter App'),
+      actions: [
+        IconButton(
+            onPressed: () {
+              _showNewTransactionModal(context);
+            },
+            icon: Icon(Icons.add)),
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter App'),
-        actions: [
-          IconButton(
-              onPressed: () {
-                _showNewTransactionModal(context);
-              },
-              icon: Icon(Icons.add)),
+      appBar: appBar,
+      body: Column(
+        children: [
+          Container(
+            height: (MediaQuery.of(context).size.height -
+                    appBar.preferredSize.height -
+                    MediaQuery.of(context).padding.top) *
+                .3,
+            child: Chart(_recentTransactions),
+          ),
+          Container(
+            height: (MediaQuery.of(context).size.height -
+                    appBar.preferredSize.height -
+                    MediaQuery.of(context).padding.top) *
+                .7,
+            child: TransactionList(_userTransactions, _deleteTransaction),
+          ),
         ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions, _deleteTransaction),
-          ],
-        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
