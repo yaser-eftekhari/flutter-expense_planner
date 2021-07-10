@@ -9,11 +9,11 @@ import 'model/transaction.dart';
 
 void main() {
   // These few lines ensure the app works only in portrait mode
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]);
   runApp(MyApp());
 }
 
@@ -53,6 +53,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> _userTransactions = [];
+  bool _showChart = false;
+
   void _showNewTransactionModal(BuildContext ctx) {
     showModalBottomSheet(
       context: ctx,
@@ -61,8 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
-
-  final List<Transaction> _userTransactions = [];
 
   void _addNewTransaction(String newTitle, double newAmount, DateTime date) {
     final newTransaction = Transaction(
@@ -106,20 +107,35 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: appBar,
       body: Column(
         children: [
-          Container(
-            height: (MediaQuery.of(context).size.height -
-                    appBar.preferredSize.height -
-                    MediaQuery.of(context).padding.top) *
-                .3,
-            child: Chart(_recentTransactions),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Show Chart"),
+              Switch(
+                value: _showChart,
+                onChanged: (value) {
+                  setState(() {
+                    _showChart = value;
+                  });
+                },
+              ),
+            ],
           ),
-          Container(
-            height: (MediaQuery.of(context).size.height -
-                    appBar.preferredSize.height -
-                    MediaQuery.of(context).padding.top) *
-                .7,
-            child: TransactionList(_userTransactions, _deleteTransaction),
-          ),
+          _showChart
+              ? Container(
+                  height: (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      .3,
+                  child: Chart(_recentTransactions),
+                )
+              : Container(
+                  height: (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      .7,
+                  child: TransactionList(_userTransactions, _deleteTransaction),
+                ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
