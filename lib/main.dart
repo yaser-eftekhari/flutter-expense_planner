@@ -93,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final _isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
     final appBar = AppBar(
       title: Text('Flutter App'),
       actions: [
@@ -103,11 +104,18 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.add)),
       ],
     );
+    final txList = Container(
+      height: (MediaQuery.of(context).size.height -
+          appBar.preferredSize.height -
+          MediaQuery.of(context).padding.top) *
+          .7,
+      child: TransactionList(_userTransactions, _deleteTransaction),
+    );
     return Scaffold(
       appBar: appBar,
       body: Column(
         children: [
-          Row(
+          if(_isLandscape) Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("Show Chart"),
@@ -121,21 +129,23 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
-          _showChart
+          if(!_isLandscape) Container(
+            height: (MediaQuery.of(context).size.height -
+                appBar.preferredSize.height -
+                MediaQuery.of(context).padding.top) *
+                .3,
+            child: Chart(_recentTransactions),
+          ),
+          if(!_isLandscape) txList,
+          if(_isLandscape) _showChart
               ? Container(
                   height: (MediaQuery.of(context).size.height -
                           appBar.preferredSize.height -
                           MediaQuery.of(context).padding.top) *
-                      .3,
+                      .7,
                   child: Chart(_recentTransactions),
                 )
-              : Container(
-                  height: (MediaQuery.of(context).size.height -
-                          appBar.preferredSize.height -
-                          MediaQuery.of(context).padding.top) *
-                      .7,
-                  child: TransactionList(_userTransactions, _deleteTransaction),
-                ),
+              : txList,
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
