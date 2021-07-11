@@ -18,13 +18,11 @@ class _NewTransactionState extends State<NewTransaction> {
     final inputTxTitle = _titleController.text;
     final inputTxAmount = _amountController.text;
 
-    if (inputTxTitle.isEmpty || inputTxAmount.isEmpty || _selectedDate == null) return;
+    if (inputTxTitle.isEmpty || inputTxAmount.isEmpty || _selectedDate == null)
+      return;
 
     widget.newTransactionCB(
-      inputTxTitle,
-      double.parse(inputTxAmount),
-      _selectedDate!
-    );
+        inputTxTitle, double.parse(inputTxAmount), _selectedDate!);
 
     Navigator.of(context).pop();
   }
@@ -45,50 +43,57 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              decoration: InputDecoration(labelText: 'Title'),
-              controller: _titleController,
-              onSubmitted: (_) => _submitTransaction(),
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Amount'),
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => _submitTransaction(),
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                      child: Text(_selectedDate == null
-                          ? "No date chosen!"
-                          : "Picked date: ${DateFormat.yMd().format(_selectedDate!)}")),
-                  TextButton(
-                    onPressed: _presentDatePicker,
-                    child: Text(
-                      "Choose date",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: 'Title'),
+                controller: _titleController,
+                onSubmitted: (_) => _submitTransaction(),
               ),
-            ),
-            ElevatedButton(
-              onPressed: _submitTransaction,
-              child: Text(
-                "Add Transaction",
+              TextField(
+                decoration: InputDecoration(labelText: 'Amount'),
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => _submitTransaction(),
               ),
-            ),
-          ],
+              Container(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Text(_selectedDate == null
+                            ? "No date chosen!"
+                            : "Picked date: ${DateFormat.yMd().format(_selectedDate!)}")),
+                    TextButton(
+                      onPressed: _presentDatePicker,
+                      child: Text(
+                        "Choose date",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                onPressed: _submitTransaction,
+                child: Text(
+                  "Add Transaction",
+                ),
+              ),
+            ],
+          ),
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
         ),
-        padding: EdgeInsets.all(10),
       ),
     );
   }
