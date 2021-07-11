@@ -93,7 +93,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final mediaQuery = MediaQuery.of(context);
+    final _isLandscape = mediaQuery.orientation == Orientation.landscape;
     final appBar = AppBar(
       title: Text('Flutter App'),
       actions: [
@@ -105,9 +106,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
     final txList = Container(
-      height: (MediaQuery.of(context).size.height -
+      height: (mediaQuery.size.height -
           appBar.preferredSize.height -
-          MediaQuery.of(context).padding.top) *
+          mediaQuery.padding.top) *
           .7,
       child: TransactionList(_userTransactions, _deleteTransaction),
     );
@@ -130,18 +131,18 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
           if(!_isLandscape) Container(
-            height: (MediaQuery.of(context).size.height -
+            height: (mediaQuery.size.height -
                 appBar.preferredSize.height -
-                MediaQuery.of(context).padding.top) *
+                mediaQuery.padding.top) *
                 .3,
             child: Chart(_recentTransactions),
           ),
           if(!_isLandscape) txList,
           if(_isLandscape) _showChart
               ? Container(
-                  height: (MediaQuery.of(context).size.height -
+                  height: (mediaQuery.size.height -
                           appBar.preferredSize.height -
-                          MediaQuery.of(context).padding.top) *
+                          mediaQuery.padding.top) *
                       .7,
                   child: Chart(_recentTransactions),
                 )
