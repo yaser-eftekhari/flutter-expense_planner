@@ -1,7 +1,8 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 
 import 'widgets/new_transaction.dart';
 import 'widgets/transaction_list.dart';
@@ -114,9 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
           .7,
       child: TransactionList(_userTransactions, _deleteTransaction),
     );
-    return Scaffold(
-      appBar: appBar,
-      body: Column(
+    final appBody = SafeArea(
+      child: Column(
         children: [
           if (_isLandscape)
             Row(
@@ -155,15 +155,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 : txList,
         ],
       ),
+    );
+    return Scaffold(
+      appBar: appBar,
+      body: appBody,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Platform.isIOS
-          ? Container()
-          : FloatingActionButton(
-              onPressed: () {
-                _showNewTransactionModal(context);
-              },
-              child: Icon(Icons.add),
-            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showNewTransactionModal(context);
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
